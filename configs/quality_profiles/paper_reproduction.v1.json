@@ -1,0 +1,44 @@
+{
+  "$schema": "../../schemas/quality_profile.v1.schema.json",
+  "schema_version": 1,
+  "kind": "quality_profile",
+  "profile_id": "paper_reproduction.v1",
+  "label": "WorldClaw paper-workflow reproduction",
+  "render": {
+    "engine": "CYCLES",
+    "min_width": 1920,
+    "min_height": 1080,
+    "min_samples": 64,
+    "min_views": 4
+  },
+  "geometry": {
+    "required_metrics": ["ground_contact_error_m", "collision_clearance_m"],
+    "thresholds": {
+      "max_ground_contact_error_m": 0.03,
+      "min_collision_clearance_m": 0.35
+    }
+  },
+  "visual": {
+    "required_checks": ["structured_world_spec", "deterministic_seed", "reference_review"],
+    "min_dynamic_range_8bit": 60,
+    "max_black_fraction": 0.15,
+    "max_white_fraction": 0.18,
+    "min_edge_mean_8bit": 5
+  },
+  "simulation": {
+    "meter_scale": true,
+    "collision_truth_required": true,
+    "navigation_truth_required": true,
+    "required_checks": ["meter_scale", "separated_truth_layers"]
+  },
+  "web": {
+    "max_draw_calls": 8000,
+    "max_glb_bytes": 268435456,
+    "min_fallback_frames": 4,
+    "require_meshopt": false
+  },
+  "gates": {
+    "order": ["reference", "graybox", "materials", "final"],
+    "require_all_approved": true
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://worldclaw.local/schemas/measurement_plan.v1.schema.json",
+  "title": "WorldClaw Blender Geometry Measurement Plan v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "kind", "scene_id", "probes"],
+  "properties": {
+    "$schema": {"type": "string"},
+    "schema_version": {"const": 1},
+    "kind": {"const": "measurement_plan"},
+    "scene_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{2,79}$"},
+    "probes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/probe"}
+    }
+  },
+  "$defs": {
+    "axis": {"enum": ["x", "y", "z"]},
+    "probe": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "metric", "method", "objects", "aggregate"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]+$"},
+        "metric": {
+          "enum": [
+            "planarity_error_m", "circle_radial_error_m",
+            "line_deviation_m", "verticality_error_deg"
+          ]
+        },
+        "method": {
+          "enum": [
+            "mesh_surface_planarity", "annulus_outer_circle",
+            "mesh_centerline", "mesh_centerline_verticality"
+          ]
+        },
+        "objects": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "aggregate": {"enum": ["max"]},
+        "local_axis": {"$ref": "#/$defs/axis"},
+        "surface_side": {"enum": ["min", "max"]},
+        "surface_tolerance_m": {"type": "number", "exclusiveMinimum": 0},
+        "slice_tolerance_m": {"type": "number", "exclusiveMinimum": 0},
+        "expected_radius_property": {"type": "string", "minLength": 1},
+        "radial_band_m": {"type": "number", "exclusiveMinimum": 0},
+        "plane_axes": {
+          "type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true,
+          "items": {"$ref": "#/$defs/axis"}
+        },
+        "normal": {
+          "type": "array", "minItems": 3, "maxItems": 3,
+          "items": {"type": "number"}
+        },
+        "notes": {"type": "string"}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"method": {"const": "mesh_surface_planarity"}}},
+          "then": {
+            "properties": {"metric": {"const": "planarity_error_m"}},
+            "required": ["local_axis", "surface_side", "surface_tolerance_m", "normal"]
+          }
+        },
+        {
+          "if": {"properties": {"method": {"const": "annulus_outer_circle"}}},
+          "then": {
+            "properties": {"metric": {"const": "circle_radial_error_m"}},
+            "required": ["expected_radius_property", "radial_band_m", "plane_axes"]
+          }
+        },
+        {
+          "if": {"properties": {"method": {"const": "mesh_centerline"}}},
+          "then": {
+            "properties": {"metric": {"const": "line_deviation_m"}},
+            "required": ["local_axis", "slice_tolerance_m"]
+          }
+        },
+        {
+          "if": {"properties": {"method": {"const": "mesh_centerline_verticality"}}},
+          "then": {
+            "properties": {"metric": {"const": "verticality_error_deg"}},
+            "required": ["local_axis", "slice_tolerance_m"]
+          }
+        }
+      ]
+    }
+  }
+}

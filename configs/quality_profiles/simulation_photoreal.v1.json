@@ -1,0 +1,48 @@
+{
+  "$schema": "../../schemas/quality_profile.v1.schema.json",
+  "schema_version": 1,
+  "kind": "quality_profile",
+  "profile_id": "simulation_photoreal.v1",
+  "label": "4K rigid-geometry simulation photoreal",
+  "render": {
+    "engine": "CYCLES",
+    "min_width": 3840,
+    "min_height": 2160,
+    "min_samples": 128,
+    "min_views": 5
+  },
+  "geometry": {
+    "required_metrics": ["planarity_error_m", "circle_radial_error_m", "line_deviation_m", "verticality_error_deg"],
+    "thresholds": {
+      "max_planarity_error_m": 0.00001,
+      "max_circle_radial_error_m": 0.0001,
+      "max_line_deviation_m": 0.001,
+      "max_verticality_error_deg": 0.01,
+      "max_ground_contact_error_m": 0.03,
+      "min_collision_clearance_m": 0.35
+    }
+  },
+  "visual": {
+    "required_checks": ["five_4k_renders", "not_crushed_black", "not_clipped_white", "edge_detail_present", "no_panorama_shell"],
+    "min_dynamic_range_8bit": 70,
+    "max_black_fraction": 0.12,
+    "max_white_fraction": 0.18,
+    "min_edge_mean_8bit": 5
+  },
+  "simulation": {
+    "meter_scale": true,
+    "collision_truth_required": true,
+    "navigation_truth_required": true,
+    "required_checks": ["meter_scale", "collision_truth", "navigation_truth", "topology_routes"]
+  },
+  "web": {
+    "max_draw_calls": 150,
+    "max_glb_bytes": 104857600,
+    "min_fallback_frames": 5,
+    "require_meshopt": true
+  },
+  "gates": {
+    "order": ["reference", "graybox", "materials", "final"],
+    "require_all_approved": true
+  }
+}

@@ -1,0 +1,64 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "worldclaw-local-reproduction"
+version = "0.1.0"
+description = "Unofficial clean-room engineering reproduction of the WorldClaw paper workflow"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+license = {file = "LICENSE"}
+authors = [{name = "WorldClaw Local Reproduction contributors"}]
+keywords = ["3d-generation", "blender", "world-generation", "worldclaw", "clean-room-reproduction"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "License :: OSI Approved :: Apache Software License",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Multimedia :: Graphics :: 3D Modeling",
+]
+dependencies = [
+  "jsonschema==4.25.1",
+]
+
+[project.optional-dependencies]
+web = [
+  "fastapi==0.116.1",
+  "httpx==0.28.1",
+  "numpy==1.26.4",
+  "pillow==10.2.0",
+  "python-multipart==0.0.20",
+  "uvicorn[standard]==0.35.0",
+]
+dev = [
+  "pytest==8.4.1",
+  "ruff==0.12.11",
+]
+
+[project.scripts]
+worldclaw = "worldclaw_core.cli:main"
+
+[project.urls]
+Paper = "https://arxiv.org/abs/2608.05248"
+Official-Project = "https://tencent-hunyuan.github.io/Hunyuan3D-WorldClaw/"
+Source = "https://github.com/shangjunyang1986/worldclaw-local-reproduction"
+
+[tool.hatch.build.targets.wheel]
+packages = ["worldclaw_core", "webapp"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+exclude = ["outputs", "release_staging", "webapp/frontend", "webapp/.venv"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+ignore = ["E501"]
+
+[tool.ruff.lint.per-file-ignores]
+"scripts/build_world.py" = ["E701", "E702", "F841"]
+"scripts/check_web_environment.py" = ["E402"]
+"scripts/measure_blender_geometry.py" = ["E402"]

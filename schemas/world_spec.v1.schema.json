@@ -1,0 +1,169 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://worldclaw.local/schemas/world_spec.v1.schema.json",
+  "title": "WorldClaw World Specification v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "kind", "scene_id", "display_name", "intent",
+    "coordinate_system", "bounds", "layers", "geometry_policy",
+    "quality_profile", "review_gates", "assets", "execution"
+  ],
+  "properties": {
+    "$schema": {"type": "string"},
+    "schema_version": {"const": 1},
+    "kind": {"const": "world_spec"},
+    "scene_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{2,79}$"},
+    "display_name": {"type": "string", "minLength": 3, "maxLength": 160},
+    "version": {"type": "string", "pattern": "^v[0-9]+(?:\\.[0-9]+){0,2}$"},
+    "intent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["simulation_use", "visual_target"],
+      "properties": {
+        "simulation_use": {"type": "string", "minLength": 5},
+        "visual_target": {"type": "string", "minLength": 5},
+        "vehicle_or_agent": {"type": "string"}
+      }
+    },
+    "coordinate_system": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["units", "up_axis", "handedness", "horizontal_axes", "origin_m"],
+      "properties": {
+        "units": {"const": "meter"},
+        "up_axis": {"const": "+Z"},
+        "handedness": {"enum": ["right", "left"]},
+        "horizontal_axes": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["x", "y"],
+          "properties": {"x": {"type": "string"}, "y": {"type": "string"}}
+        },
+        "origin_m": {"$ref": "#/$defs/vector3"},
+        "crs": {"type": ["string", "null"]}
+      }
+    },
+    "bounds": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["min_m", "max_m", "extent_m"],
+      "properties": {
+        "min_m": {"$ref": "#/$defs/vector3"},
+        "max_m": {"$ref": "#/$defs/vector3"},
+        "extent_m": {"$ref": "#/$defs/positiveVector3"},
+        "protected_geometry_band_m": {"type": "number", "minimum": 0}
+      }
+    },
+    "layers": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reference", "visual_geometry", "simulation_geometry", "navigation_truth"],
+      "properties": {
+        "reference": {"$ref": "#/$defs/layer"},
+        "visual_geometry": {"$ref": "#/$defs/layer"},
+        "simulation_geometry": {"$ref": "#/$defs/layer"},
+        "navigation_truth": {"$ref": "#/$defs/layer"}
+      }
+    },
+    "geometry_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["authoritative_shape_sources", "generated_images_role", "allow_panorama_shell_as_truth", "allow_monocular_depth_as_truth"],
+      "properties": {
+        "authoritative_shape_sources": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": {"enum": ["explicit_metric_mesh", "cad", "survey", "photogrammetry", "validated_asset", "procedural_geometry"]}
+        },
+        "generated_images_role": {"enum": ["reference_only", "material_appearance_only", "not_used"]},
+        "allow_panorama_shell_as_truth": {"const": false},
+        "allow_monocular_depth_as_truth": {"const": false},
+        "required_features": {"type": "array", "uniqueItems": true, "items": {"type": "string"}}
+      }
+    },
+    "topology": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "regions": {"type": "array", "items": {"$ref": "#/$defs/namedEntity"}},
+        "landmarks": {"type": "array", "items": {"$ref": "#/$defs/namedEntity"}},
+        "routes": {"type": "array", "items": {"$ref": "#/$defs/namedEntity"}}
+      }
+    },
+    "quality_profile": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]+$"},
+    "review_gates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reference", "graybox", "materials", "final"],
+      "properties": {
+        "reference": {"$ref": "#/$defs/gate"},
+        "graybox": {"$ref": "#/$defs/gate"},
+        "materials": {"$ref": "#/$defs/gate"},
+        "final": {"$ref": "#/$defs/gate"}
+      }
+    },
+    "assets": {
+      "type": "array", "uniqueItems": true,
+      "items": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]+$"}
+    },
+    "semantic_classes": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false, "required": ["id", "name"],
+        "properties": {"id": {"type": "integer", "minimum": 0}, "name": {"type": "string"}}
+      }
+    },
+    "measurement_plan": {"type": "string", "minLength": 1},
+    "artifacts": {"type": "object", "additionalProperties": {"type": "string"}},
+    "execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "builder", "source"],
+      "properties": {
+        "mode": {"enum": ["rebuild", "frozen_delivery", "hybrid"]},
+        "builder": {"type": "string", "minLength": 1},
+        "source": {"type": "string", "minLength": 1},
+        "arguments": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "metadata": {"type": "object", "additionalProperties": true}
+  },
+  "$defs": {
+    "vector3": {
+      "type": "array", "minItems": 3, "maxItems": 3,
+      "items": {"type": "number"}
+    },
+    "positiveVector3": {
+      "type": "array", "minItems": 3, "maxItems": 3,
+      "items": {"type": "number", "exclusiveMinimum": 0}
+    },
+    "layer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "authoritative", "sources"],
+      "properties": {
+        "role": {"type": "string", "minLength": 3},
+        "authoritative": {"type": "boolean"},
+        "sources": {"type": "array", "items": {"type": "string"}},
+        "notes": {"type": "string"}
+      }
+    },
+    "gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "evidence"],
+      "properties": {
+        "status": {"enum": ["pending", "approved", "rejected"]},
+        "evidence": {"type": "array", "items": {"type": "string"}},
+        "reviewer": {"type": "string"},
+        "notes": {"type": "string"}
+      }
+    },
+    "namedEntity": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["id"],
+      "properties": {"id": {"type": "string"}, "label": {"type": "string"}}
+    }
+  }
+}

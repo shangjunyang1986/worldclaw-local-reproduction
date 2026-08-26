@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://worldclaw.local/schemas/asset_manifest.v1.schema.json",
+  "title": "WorldClaw Asset Registry v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "kind", "registry_id", "assets"],
+  "properties": {
+    "$schema": {"type": "string"},
+    "schema_version": {"const": 1},
+    "kind": {"const": "asset_registry"},
+    "registry_id": {"type": "string", "minLength": 3},
+    "assets": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/asset"}
+    }
+  },
+  "$defs": {
+    "asset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "version", "label", "category", "status", "files", "geometry", "materials", "provenance", "quality"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]+$"},
+        "version": {"type": "string", "pattern": "^v[0-9]+(?:\\.[0-9]+){0,2}$"},
+        "label": {"type": "string", "minLength": 2},
+        "category": {"type": "string", "minLength": 2},
+        "status": {"enum": ["candidate", "approved", "rejected", "deprecated"]},
+        "tags": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+        "files": {
+          "type": "array", "minItems": 1,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["role", "path", "sha256", "bytes"],
+            "properties": {
+              "role": {"enum": ["render", "source", "collision", "preview", "license", "material", "metadata"]},
+              "path": {"type": "string", "minLength": 1},
+              "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+              "bytes": {"type": "integer", "minimum": 1}
+            }
+          }
+        },
+        "geometry": {
+          "type": "object", "additionalProperties": false,
+          "required": ["native_units", "axes", "origin", "scale_status", "lods", "collision"],
+          "properties": {
+            "native_units": {"enum": ["meter", "centimeter", "millimeter", "normalized", "unknown"]},
+            "intended_dimensions_m": {
+              "type": ["array", "null"], "minItems": 3, "maxItems": 3,
+              "items": {"type": "number", "exclusiveMinimum": 0}
+            },
+            "axes": {
+              "type": "object", "additionalProperties": false,
+              "required": ["up", "front"],
+              "properties": {"up": {"type": "string"}, "front": {"type": "string"}}
+            },
+            "origin": {"enum": ["ground_center", "center", "custom", "unknown"]},
+            "scale_status": {"enum": ["verified", "requires_scene_scale", "unknown"]},
+            "lods": {"type": "array", "items": {"type": "string"}},
+            "collision": {"enum": ["embedded", "separate", "generated_proxy", "none"]}
+          }
+        },
+        "materials": {
+          "type": "object", "additionalProperties": false,
+          "required": ["workflow", "pbr_channels"],
+          "properties": {
+            "workflow": {"enum": ["metallic_roughness", "specular_glossiness", "unlit", "unknown"]},
+            "pbr_channels": {
+              "type": "array", "uniqueItems": true,
+              "items": {"enum": ["base_color", "normal", "roughness", "metallic", "ao", "emissive", "opacity"]}
+            },
+            "texture_max_px": {"type": ["integer", "null"], "minimum": 1}
+          }
+        },
+        "provenance": {
+          "type": "object", "additionalProperties": false,
+          "required": ["source_type", "generator", "license", "allowed_use"],
+          "properties": {
+            "source_type": {"enum": ["generated", "external", "authored", "survey", "hybrid"]},
+            "generator": {"type": "string", "minLength": 2},
+            "source_url": {"type": ["string", "null"]},
+            "author": {"type": ["string", "null"]},
+            "license": {"type": "string", "minLength": 2},
+            "allowed_use": {"type": "string", "minLength": 3}
+          }
+        },
+        "quality": {
+          "type": "object", "additionalProperties": false,
+          "required": ["geometry_review", "material_review", "preview"],
+          "properties": {
+            "geometry_review": {"enum": ["pending", "approved", "rejected"]},
+            "material_review": {"enum": ["pending", "approved", "rejected"]},
+            "preview": {"type": ["string", "null"]},
+            "notes": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

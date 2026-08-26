@@ -1,0 +1,53 @@
+{
+  "$schema": "../../schemas/asset_manifest.v1.schema.json",
+  "schema_version": 1,
+  "kind": "asset_registry",
+  "registry_id": "cc0_frontier_fixture.v1",
+  "assets": [
+    {
+      "id": "cc0_frontier_procedural_kit",
+      "version": "v1.0",
+      "label": "Source-only procedural frontier kit",
+      "category": "procedural_world",
+      "status": "candidate",
+      "tags": ["ci", "fixture", "procedural", "source-only"],
+      "files": [
+        {
+          "role": "metadata",
+          "path": "examples/cc0_frontier/procedural_asset.txt",
+          "sha256": "b371621c4399cb5d5bf3708f708e24070646b07814be09b14353945901594300",
+          "bytes": 130
+        }
+      ],
+      "geometry": {
+        "native_units": "meter",
+        "intended_dimensions_m": [260, 260, 80],
+        "axes": {"up": "+Z", "front": "-Y"},
+        "origin": "ground_center",
+        "scale_status": "verified",
+        "lods": [],
+        "collision": "generated_proxy"
+      },
+      "materials": {
+        "workflow": "metallic_roughness",
+        "pbr_channels": ["base_color", "normal", "roughness"],
+        "texture_max_px": null
+      },
+      "provenance": {
+        "source_type": "authored",
+        "generator": "WorldClaw deterministic Blender builder",
+        "source_url": null,
+        "author": "WorldClaw Local Reproduction contributors",
+        "license": "Apache-2.0",
+        "allowed_use": "Source fixture and locally generated procedural output"
+      },
+      "quality": {
+        "geometry_review": "pending",
+        "material_review": "pending",
+        "preview": null,
+        "notes": "The source fixture carries no final mesh or texture payload."
+      }
+    }
+  ]
+}
+

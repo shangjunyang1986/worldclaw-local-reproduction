@@ -1,0 +1,48 @@
+{
+  "$schema": "../../schemas/quality_profile.v1.schema.json",
+  "schema_version": 1,
+  "kind": "quality_profile",
+  "profile_id": "photographic_true3d.v1",
+  "label": "Photographic true-3D regional delivery",
+  "render": {
+    "engine": "CYCLES",
+    "min_width": 2560,
+    "min_height": 1440,
+    "min_samples": 96,
+    "min_views": 5
+  },
+  "geometry": {
+    "required_metrics": [],
+    "thresholds": {
+      "max_planarity_error_m": 0.001,
+      "max_circle_radial_error_m": 0.001,
+      "max_line_deviation_m": 0.005,
+      "max_verticality_error_deg": 0.05,
+      "max_ground_contact_error_m": 0.03,
+      "min_collision_clearance_m": 0.35
+    }
+  },
+  "visual": {
+    "required_checks": ["five_raw_renders", "naip_ground_material", "environment_packed", "hunyuan_arff_8_wheels"],
+    "min_dynamic_range_8bit": 60,
+    "max_black_fraction": 0.15,
+    "max_white_fraction": 0.18,
+    "min_edge_mean_8bit": 5
+  },
+  "simulation": {
+    "meter_scale": true,
+    "collision_truth_required": true,
+    "navigation_truth_required": false,
+    "required_checks": ["meter_scale", "aircraft_roots_26", "hero_aircraft_grounded", "jetbridge_targets_l1"]
+  },
+  "web": {
+    "max_draw_calls": 8000,
+    "max_glb_bytes": 268435456,
+    "min_fallback_frames": 20,
+    "require_meshopt": false
+  },
+  "gates": {
+    "order": ["reference", "graybox", "materials", "final"],
+    "require_all_approved": true
+  }
+}

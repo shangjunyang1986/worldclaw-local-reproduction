@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "If you use this reproduction, cite both this software and the original WorldClaw paper."
+title: "WorldClaw Local Reproduction"
+type: software
+version: 0.1.0
+date-released: 2026-08-26
+license: Apache-2.0
+repository-code: "https://github.com/shangjunyang1986/worldclaw-local-reproduction"
+abstract: "Unofficial clean-room engineering reproduction of the WorldClaw paper workflow."
+preferred-citation:
+  type: article
+  title: "WorldClaw: Agentic 3D Open-World Generation at Scale"
+  authors:
+    - family-names: Guo
+      given-names: Chunchao
+    - family-names: Li
+      given-names: Jinpeng
+    - family-names: Li
+      given-names: Yang
+    - family-names: Huang
+      given-names: Zilong
+  year: 2026
+  identifiers:
+    - type: other
+      value: "arXiv:2608.05248"
+  url: "https://arxiv.org/abs/2608.05248"

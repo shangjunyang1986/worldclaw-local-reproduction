@@ -1,0 +1,62 @@
+# Private production data and generated deliveries
+outputs/
+release_staging/
+assets/generated/
+assets/generated_u01/
+assets/external/
+assets/references/
+
+# Model weights and large 3D/media artifacts
+*.blend
+*.blend1
+*.glb
+*.gltf
+*.bin
+*.ply
+*.obj
+*.mtl
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.onnx
+*.exr
+*.mp4
+*.mov
+*.zip
+*.7z
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+
+# Node and frontend builds
+node_modules/
+webapp/frontend/dist/
+npm-debug.log*
+
+# Local services, configuration and logs
+.env
+.env.*
+!.env.example
+.worldclaw.toml
+*.db
+*.db-shm
+*.db-wal
+*.sqlite*
+*.log
+webapp/data/
+
+# Local tools, IDE and OS metadata
+.tools/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

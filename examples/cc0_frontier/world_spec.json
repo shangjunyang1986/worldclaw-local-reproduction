@@ -1,0 +1,104 @@
+{
+  "$schema": "../../schemas/world_spec.v1.schema.json",
+  "schema_version": 1,
+  "kind": "world_spec",
+  "scene_id": "cc0_frontier.seed-260805",
+  "display_name": "The Greenwater Frontier",
+  "version": "v1.0",
+  "intent": {
+    "simulation_use": "Local agent-navigation and visual world-generation validation",
+    "visual_target": "grounded cinematic realism"
+  },
+  "coordinate_system": {
+    "units": "meter",
+    "up_axis": "+Z",
+    "handedness": "right",
+    "horizontal_axes": {"x": "east", "y": "north"},
+    "origin_m": [0, 0, 0],
+    "crs": null
+  },
+  "bounds": {
+    "min_m": [-130, -130, -8],
+    "max_m": [130, 130, 72],
+    "extent_m": [260, 260, 80],
+    "protected_geometry_band_m": 1
+  },
+  "layers": {
+    "reference": {
+      "role": "Approved references constrain appearance and layout only",
+      "authoritative": false,
+      "sources": []
+    },
+    "visual_geometry": {
+      "role": "Renderable procedural world and validated generated assets",
+      "authoritative": false,
+      "sources": ["plan.json"]
+    },
+    "simulation_geometry": {
+      "role": "Meter-scale authored terrain and collision proxies",
+      "authoritative": true,
+      "sources": ["plan.json"]
+    },
+    "navigation_truth": {
+      "role": "Routes and traversable regions derived from explicit geometry",
+      "authoritative": true,
+      "sources": ["plan.json"]
+    }
+  },
+  "geometry_policy": {
+    "authoritative_shape_sources": ["procedural_geometry", "validated_asset"],
+    "generated_images_role": "reference_only",
+    "allow_panorama_shell_as_truth": false,
+    "allow_monocular_depth_as_truth": false,
+    "required_features": ["meter_scale", "separate_visual_and_simulation_layers"]
+  },
+  "topology": {
+    "regions": [
+      {"id": "river", "label": "Greenwater River"},
+      {"id": "village", "label": "Frontier Village"},
+      {"id": "forest", "label": "Pine Forest"},
+      {"id": "highlands", "label": "Rocky Highlands"},
+      {"id": "meadow", "label": "Open Meadow"}
+    ],
+    "landmarks": [
+      {"id": "landmark-01-village", "label": "village", "type": "village", "position": [29, 23], "radius": 19},
+      {"id": "landmark-02-bridge", "label": "bridge", "type": "bridge", "position": [7, 0]},
+      {"id": "landmark-03-watchtower", "label": "watchtower", "type": "watchtower", "position": [42, 35]},
+      {"id": "landmark-04-stone_circle", "label": "stone_circle", "type": "stone_circle", "position": [-43, 31]}
+    ],
+    "routes": []
+  },
+  "quality_profile": "paper_reproduction.v1",
+  "review_gates": {
+    "reference": {"status": "pending", "evidence": []},
+    "graybox": {"status": "pending", "evidence": []},
+    "materials": {"status": "pending", "evidence": []},
+    "final": {"status": "pending", "evidence": []}
+  },
+  "assets": ["cc0_frontier_procedural_kit"],
+  "artifacts": {
+    "plan": "plan.json",
+    "blend": "world.blend",
+    "web": "world.glb",
+    "delivery": "delivery_manifest.json"
+  },
+  "execution": {
+    "mode": "rebuild",
+    "builder": "scripts/build_world.py",
+    "source": "plan.json",
+    "arguments": ["--engine", "cycles"]
+  },
+  "metadata": {
+    "prompt": "A meter-scale CC0 frontier valley used to validate the public WorldClaw paper-workflow reproduction",
+    "seed": 260805,
+    "paper_workflow_stages": [
+      "structured_planning",
+      "reference_generation",
+      "segmentation",
+      "asset_reconstruction",
+      "world_assembly",
+      "quality_gates"
+    ]
+  }
+}
+

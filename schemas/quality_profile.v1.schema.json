@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://worldclaw.local/schemas/quality_profile.v1.schema.json",
+  "title": "WorldClaw Quality Profile v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "kind", "profile_id", "label", "render", "geometry", "visual", "simulation", "web", "gates"],
+  "properties": {
+    "$schema": {"type": "string"},
+    "schema_version": {"const": 1},
+    "kind": {"const": "quality_profile"},
+    "profile_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]+$"},
+    "label": {"type": "string", "minLength": 3},
+    "render": {
+      "type": "object", "additionalProperties": false,
+      "required": ["engine", "min_width", "min_height", "min_samples", "min_views"],
+      "properties": {
+        "engine": {"enum": ["CYCLES", "BLENDER_EEVEE_NEXT", "ANY"]},
+        "min_width": {"type": "integer", "minimum": 1},
+        "min_height": {"type": "integer", "minimum": 1},
+        "min_samples": {"type": "integer", "minimum": 1},
+        "min_views": {"type": "integer", "minimum": 1}
+      }
+    },
+    "geometry": {
+      "type": "object", "additionalProperties": false,
+      "required": ["required_metrics", "thresholds"],
+      "properties": {
+        "required_metrics": {
+          "type": "array", "uniqueItems": true,
+          "items": {"enum": ["planarity_error_m", "circle_radial_error_m", "line_deviation_m", "verticality_error_deg", "ground_contact_error_m", "collision_clearance_m"]}
+        },
+        "thresholds": {
+          "type": "object", "additionalProperties": false,
+          "properties": {
+            "max_planarity_error_m": {"type": "number", "minimum": 0},
+            "max_circle_radial_error_m": {"type": "number", "minimum": 0},
+            "max_line_deviation_m": {"type": "number", "minimum": 0},
+            "max_verticality_error_deg": {"type": "number", "minimum": 0},
+            "max_ground_contact_error_m": {"type": "number", "minimum": 0},
+            "min_collision_clearance_m": {"type": "number", "minimum": 0}
+          }
+        }
+      }
+    },
+    "visual": {
+      "type": "object", "additionalProperties": false,
+      "required": ["required_checks", "min_dynamic_range_8bit", "max_black_fraction", "max_white_fraction", "min_edge_mean_8bit"],
+      "properties": {
+        "required_checks": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+        "min_dynamic_range_8bit": {"type": "number", "minimum": 0},
+        "max_black_fraction": {"type": "number", "minimum": 0, "maximum": 1},
+        "max_white_fraction": {"type": "number", "minimum": 0, "maximum": 1},
+        "min_edge_mean_8bit": {"type": "number", "minimum": 0}
+      }
+    },
+    "simulation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["meter_scale", "collision_truth_required", "navigation_truth_required", "required_checks"],
+      "properties": {
+        "meter_scale": {"const": true},
+        "collision_truth_required": {"type": "boolean"},
+        "navigation_truth_required": {"type": "boolean"},
+        "required_checks": {"type": "array", "uniqueItems": true, "items": {"type": "string"}}
+      }
+    },
+    "web": {
+      "type": "object", "additionalProperties": false,
+      "required": ["max_draw_calls", "max_glb_bytes", "min_fallback_frames", "require_meshopt"],
+      "properties": {
+        "max_draw_calls": {"type": "integer", "minimum": 1},
+        "max_glb_bytes": {"type": "integer", "minimum": 1},
+        "min_fallback_frames": {"type": "integer", "minimum": 1},
+        "require_meshopt": {"type": "boolean"}
+      }
+    },
+    "gates": {
+      "type": "object", "additionalProperties": false,
+      "required": ["order", "require_all_approved"],
+      "properties": {
+        "order": {
+          "type": "array", "minItems": 4, "maxItems": 4, "uniqueItems": true,
+          "items": {"enum": ["reference", "graybox", "materials", "final"]}
+        },
+        "require_all_approved": {"type": "boolean"}
+      }
+    }
+  }
+}

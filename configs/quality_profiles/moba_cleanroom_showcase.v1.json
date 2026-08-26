@@ -1,0 +1,45 @@
+{
+  "$schema": "../../schemas/quality_profile.v1.schema.json",
+  "schema_version": 1,
+  "kind": "quality_profile",
+  "profile_id": "moba_cleanroom_showcase.v1",
+  "label": "Metric clean-room MOBA showcase",
+  "render": {
+    "engine": "CYCLES",
+    "min_width": 2560,
+    "min_height": 1440,
+    "min_samples": 96,
+    "min_views": 5
+  },
+  "geometry": {
+    "required_metrics": [],
+    "thresholds": {
+      "max_ground_contact_error_m": 0.03,
+      "min_collision_clearance_m": 0.35
+    }
+  },
+  "visual": {
+    "required_checks": ["accepted_render_set", "key_visual_assets", "pbr_environment"],
+    "min_dynamic_range_8bit": 60,
+    "max_black_fraction": 0.15,
+    "max_white_fraction": 0.18,
+    "min_edge_mean_8bit": 5
+  },
+  "simulation": {
+    "meter_scale": true,
+    "collision_truth_required": true,
+    "navigation_truth_required": true,
+    "required_checks": ["metric_topology", "collision_truth_unchanged", "three_lanes_two_bases"]
+  },
+  "web": {
+    "max_draw_calls": 20000,
+    "max_glb_bytes": 209715200,
+    "min_fallback_frames": 5,
+    "require_meshopt": false
+  },
+  "gates": {
+    "order": ["reference", "graybox", "materials", "final"],
+    "require_all_approved": true
+  }
+}
+

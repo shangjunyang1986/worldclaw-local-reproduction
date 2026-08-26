@@ -1,0 +1,15 @@
+WorldClaw Local Reproduction
+Copyright 2026 WorldClaw Local Reproduction contributors
+
+This repository is an unofficial, clean-room engineering reproduction of the
+method described in "WorldClaw: Agentic 3D Open-World Generation at Scale" by
+Chunchao Guo, Jinpeng Li, Yang Li, and Zilong Huang (arXiv:2608.05248).
+
+It is not the official WorldClaw implementation and is not affiliated with,
+sponsored by, or endorsed by Tencent. Tencent, Tencent Hunyuan, Honor of Kings,
+SAM, Blender, and other product names are trademarks of their respective owners.
+
+The Apache-2.0 license applies only to original source code and documentation
+identified as part of this repository. External models, weights, datasets,
+reference images, generated outputs, and third-party assets remain subject to
+their own licenses and are not relicensed by this repository.

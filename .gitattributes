@@ -1,0 +1,17 @@
+* text=auto eol=lf
+*.sh text eol=lf
+*.py text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+
+# Public releases do not store these formats in Git. If a downstream fork
+# intentionally enables Git LFS it must also review the applicable asset license.
+*.blend binary
+*.glb binary
+*.gltf binary
+*.bin binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.zip binary

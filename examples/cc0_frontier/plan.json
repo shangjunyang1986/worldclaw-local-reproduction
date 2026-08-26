@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "preset": "cc0_frontier",
+  "prompt": "A meter-scale CC0 frontier valley used to validate the public WorldClaw paper-workflow reproduction",
+  "seed": 260805,
+  "world": {
+    "name": "The Greenwater Frontier",
+    "extent_m": 260,
+    "terrain_resolution": 385,
+    "style": "grounded cinematic realism"
+  },
+  "regions": [
+    {"id": "river", "label": "Greenwater River", "color": "#317fa8"},
+    {"id": "village", "label": "Frontier Village", "color": "#b99861"},
+    {"id": "forest", "label": "Pine Forest", "color": "#315b35"},
+    {"id": "highlands", "label": "Rocky Highlands", "color": "#77746d"},
+    {"id": "meadow", "label": "Open Meadow", "color": "#6d934a"}
+  ],
+  "landmarks": [
+    {"type": "village", "position": [29, 23], "radius": 19},
+    {"type": "bridge", "position": [7, 0]},
+    {"type": "watchtower", "position": [42, 35]},
+    {"type": "stone_circle", "position": [-43, 31]}
+  ],
+  "density": {
+    "trees": 210,
+    "alpine_trees": 90,
+    "grass_patches": 140,
+    "rocks": 90,
+    "river_rocks": 115,
+    "houses": 9
+  },
+  "render": {"width": 1920, "height": 1080, "samples": 64, "cycles_samples": 64}
+}
+

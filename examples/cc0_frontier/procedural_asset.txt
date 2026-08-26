@@ -1,0 +1,3 @@
+WorldClaw source-only procedural frontier kit.
+No mesh, texture, model weight, or third-party asset is embedded in this fixture.
+
