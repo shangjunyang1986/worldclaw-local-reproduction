@@ -38,9 +38,11 @@ ALLOWED_SUFFIXES = {
     ".sh",
     ".toml",
     ".txt",
+    ".webp",
     ".yaml",
     ".yml",
 }
+BINARY_SUFFIXES = {".webp"}
 IGNORED_PARTS = {
     ".git",
     ".mypy_cache",
@@ -119,6 +121,18 @@ def audit_file(path: Path) -> dict:
     if path.suffix.lower() not in ALLOWED_SUFFIXES:
         raise ReleaseError(f"Public file type is not allowlisted: {relative}")
     payload = path.read_bytes()
+    if path.suffix.lower() in BINARY_SUFFIXES:
+        if not (
+            len(payload) >= 12
+            and payload[:4] == b"RIFF"
+            and payload[8:12] == b"WEBP"
+        ):
+            raise ReleaseError(f"Invalid WebP documentation media: {relative}")
+        return {
+            "path": relative,
+            "bytes": size,
+            "sha256": hashlib.sha256(payload).hexdigest(),
+        }
     if b"\x00" in payload:
         raise ReleaseError(f"Binary payload is forbidden: {relative}")
     text = payload.decode("utf-8")

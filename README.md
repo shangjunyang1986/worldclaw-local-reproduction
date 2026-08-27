@@ -1,5 +1,7 @@
 # WorldClaw Local Reproduction
 
+**English** | [简体中文](README.zh-CN.md)
+
 Unofficial clean-room engineering reproduction of Tencent Hunyuan's paper
 **“WorldClaw: Agentic 3D Open-World Generation at Scale.”**
 
@@ -20,6 +22,30 @@ Original work:
 
 This reproduction repository:
 <https://github.com/shangjunyang1986/worldclaw-local-reproduction>
+
+## Generated results
+
+The images below are actual Blender renders of editable 3D scenes assembled by
+this pipeline. They are not reference images and are not flat image-generation
+results. The repository includes compressed documentation previews only; model
+weights, production BLEND/GLB files, and full render archives remain outside the
+public source release.
+
+![A Cycles render of the generated frontier valley world, including terrain, river, forest, village, bridge, watchtower, and windmill](docs/public/assets/frontier-valley-cycles.webp)
+
+*Frontier valley world — a world-scale Cycles render with 4,236 scene objects,
+regional terrain, a river corridor, vegetation, a village, and landmark
+placement.*
+
+| Metric urban scene | Explicit structural geometry |
+|---|---|
+| ![A generated dense urban hospital rooftop with an analytically circular helipad](docs/public/assets/dense-urban-helipad.webp) | ![A generated dense urban construction scene with an explicit metric tower crane](docs/public/assets/dense-urban-crane.webp) |
+| Analytically circular helipad and planar roof surfaces. | Straight-beam tower crane and measured construction layout. |
+
+The urban validation scene uses explicit metric meshes for shape, collision,
+and navigation; generated bitmaps affect material appearance only. See the
+[showcase provenance](docs/public/assets/README.md) for source hashes,
+transformations, licensing boundaries, and the exact validation claims.
 
 ## What is reproduced
 

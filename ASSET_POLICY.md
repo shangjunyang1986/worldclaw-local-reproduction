@@ -3,6 +3,12 @@
 The Git repository is source-first. It contains only small fixtures that are
 original, procedural, or explicitly cleared for redistribution.
 
+Small, curated WebP renders may be included under `docs/public/assets/` for
+documentation. Each one must have a provenance record, a source-render hash,
+a local hash, a modification record, an explicit license expression, and a
+plain-language allowed-use statement. A documentation preview does not make
+the underlying model, texture pack, or production scene redistributable.
+
 The following are excluded by default:
 
 - official reference screenshots and project-page media;

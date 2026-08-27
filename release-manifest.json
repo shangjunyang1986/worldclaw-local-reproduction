@@ -2,9 +2,9 @@
   "schema_version": 1,
   "status": "passed",
   "release_kind": "source_only_clean_room_reproduction",
-  "file_count": 82,
-  "bytes": 485270,
-  "policy_sha256": "110ab8b1b6e13fb9d2c1e05556114102dcc60e0ac2173955eba0cb9a18242b08",
+  "file_count": 87,
+  "bytes": 1121277,
+  "policy_sha256": "c1908fc7b30dc0ca2b8c15390cdf842991acd8ad42e49011903905c3ec757cf6",
   "files": [
     {
       "path": ".gitattributes",
@@ -18,8 +18,8 @@
     },
     {
       "path": "ASSET_POLICY.md",
-      "bytes": 1026,
-      "sha256": "a7e8be5b6f1ccafabd751131dd34c637d94ed4160bdb8c133d86720cfaa36418"
+      "bytes": 1404,
+      "sha256": "0cbeb3f22316fca3e1c6ea038057cc30924fc41819f93a8a76c41f632348961e"
     },
     {
       "path": "CITATION.cff",
@@ -53,8 +53,13 @@
     },
     {
       "path": "README.md",
-      "bytes": 4884,
-      "sha256": "769fe0ec79f78c9c6c076f6e3cec6ea7e7ab357be14ccd376e5de06d207e1c4e"
+      "bytes": 6386,
+      "sha256": "9b9443a4e66c71b9b8ea63485003dacf15b5737ba79a2966405d032fa5d6f99c"
+    },
+    {
+      "path": "README.zh-CN.md",
+      "bytes": 6152,
+      "sha256": "875b8d18db0b0c51d290d60ec9ab383b63287dbdcaaba57f48315743e090a3f4"
     },
     {
       "path": "ROADMAP.md",
@@ -117,6 +122,26 @@
       "sha256": "3a5ead93344a51d5dbb312bbdf599998f9fce8d99f41638ce1eac41484e0ec40"
     },
     {
+      "path": "docs/public/assets/README.md",
+      "bytes": 4248,
+      "sha256": "7b0a9b14620bd31c44f608833cc72f5ae88032a510c0218e734fbed3ee9ae6ad"
+    },
+    {
+      "path": "docs/public/assets/dense-urban-crane.webp",
+      "bytes": 186824,
+      "sha256": "a0ebabd3a3280cdd6a706b2a63afbfdedff85a9916020b3e0b5d49eef4315880"
+    },
+    {
+      "path": "docs/public/assets/dense-urban-helipad.webp",
+      "bytes": 162844,
+      "sha256": "dff22adbc34fa1b5f4c4273a4eb51f66254dd3d3f77e1daab3d8aac67ef1c793"
+    },
+    {
+      "path": "docs/public/assets/frontier-valley-cycles.webp",
+      "bytes": 273586,
+      "sha256": "31f15a68c1fe0ad9da5b482183cdcf85e7d184e28c0dc43daa12d4ee0ab444b6"
+    },
+    {
       "path": "examples/cc0_frontier/README.md",
       "bytes": 671,
       "sha256": "4f178f592952cd7fcf1fd3cdb22b4bc6501f1a2951dfbbb93825b042c98ee8a1"
@@ -153,8 +178,8 @@
     },
     {
       "path": "release/public_files.json",
-      "bytes": 1332,
-      "sha256": "110ab8b1b6e13fb9d2c1e05556114102dcc60e0ac2173955eba0cb9a18242b08"
+      "bytes": 1355,
+      "sha256": "c1908fc7b30dc0ca2b8c15390cdf842991acd8ad42e49011903905c3ec757cf6"
     },
     {
       "path": "schemas/asset_manifest.v1.schema.json",
@@ -178,8 +203,8 @@
     },
     {
       "path": "scripts/build_public_release.py",
-      "bytes": 6886,
-      "sha256": "ac98d70249ba4fb4dd03e71997977eeba4326e25d10fc1cb31a07d198c0c3a90"
+      "bytes": 7336,
+      "sha256": "7ad1093ba6afa64af868ed06d70d99f2961e75bce38cec85f3254a21a21aa0d5"
     },
     {
       "path": "scripts/build_world.py",
